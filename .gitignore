@@ -2,7 +2,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=node
 
 
-/frontend_sanity/.env
+/poke-stash-frontend/.env
 
 ### Node ###
 # Logs
