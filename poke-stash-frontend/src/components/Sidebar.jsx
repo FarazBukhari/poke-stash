@@ -3,6 +3,7 @@ import { NavLink, Link } from 'react-router-dom';
 import { RiHomeFill } from 'react-icons/ri';
 import { IoIosArrowForward } from 'react-icons/io';
 import logo from '../assets/logo.png'
+import { categories } from '../utils/data';
 
 const Sidebar = ({ user, closeToggle }) => {
     
@@ -10,14 +11,14 @@ const Sidebar = ({ user, closeToggle }) => {
     const isActiveStyle = 'flex items-center p-3 gap-3 font-bold border-r-2 border-black shadow-md transition-all duration-200 ease-in-out capitalize';
 
 
-    const categories = [
-        {name: 'Animal'},
-        {name: 'Wallpapers'},
-        {name: 'Photography'},
-        {name: 'Gaming'},
-        {name: 'Coding'},
-        {name: 'Other'},
-    ]
+    // const categories = [
+    //     {name: 'Animal'},
+    //     {name: 'Wallpapers'},
+    //     {name: 'Photography'},
+    //     {name: 'Gaming'},
+    //     {name: 'Coding'},
+    //     {name: 'Other'},
+    // ]
     const handleCloseSidebar = () => {
         if (closeToggle) closeToggle(false);
     }
