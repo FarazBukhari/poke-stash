@@ -36,13 +36,13 @@ const Home = () => {
             </div>
             <div className='flex md:hidden flex-row'>
                 <div className='p-2 w-full flex flex-row justify-between items-center shadow-md'>
-                <HiMenu fontSize={40} className='cursor-pointer' onClick={() => setToggleSidebar(true)}/>
-                <Link to='/'>
-                    <img src={ logo } alt='logo' className='w-48'/>
-                </Link> 
-                <Link to={`user-profile/${user?._id}`}>
-                    <img src={ user?.image } alt='logo' className='w-28'/>
-                </Link>
+                    <HiMenu fontSize={40} className='cursor-pointer' onClick={() => setToggleSidebar(true)}/>
+                    <Link to='/'>
+                        <img src={ logo } alt='logo' className='w-48'/>
+                    </Link> 
+                    <Link to={`user-profile/${user?._id}`}>
+                        <img src={ user?.image } alt='logo' className='w-28'/>
+                    </Link>
                 </div>
             {toggleSidebar && (
                 <div className='fixed w-4/5 bg-white h-screen overflow-y-auto shadow-md z-10 animate-slide-in'>

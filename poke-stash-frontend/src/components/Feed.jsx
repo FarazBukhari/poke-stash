@@ -13,7 +13,7 @@ const Feed = () => {
     const { categoryId } = useParams();
 
     useEffect(() => {
-        setLoading = true;
+        setLoading(true);
         if (categoryId) {
             const query = searchQuery(categoryId);
 
@@ -35,7 +35,7 @@ const Feed = () => {
     
     return (
         <div>
-            Feed
+            {pins && <MasonryLayout pins={ pins }/>}
         </div>
     )
 }
