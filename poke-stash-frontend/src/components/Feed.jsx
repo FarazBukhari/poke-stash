@@ -15,24 +15,29 @@ const Feed = () => {
     useEffect(() => {
         setLoading(true);
         if (categoryId) {
+            setLoading(true);
             const query = searchQuery(categoryId);
 
             client.fetch(query)
                 .then((data) => {
                     setPins(data);
                     setLoading(false);
-                })
+                });
         } else {
+            setLoading(true);
+
             client.fetch(feedQuery)
                 .then((data) => {
                     setPins(data);
                     setLoading(false);
-                })
+                });
         }
     }, [categoryId])
 
     if (loading) return <Spinner message='We are adding new Pokemon to your feed!' />
-    
+    console.log('feed pins', pins)
+    if(!pins?.length) return <h2>No pokemon in this category yet</h2>
+
     return (
         <div>
             {pins && <MasonryLayout pins={ pins }/>}
