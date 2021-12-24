@@ -51,6 +51,8 @@ const UserProfile = () => {
 
     const logout = () => {
         localStorage.clear();
+
+        navigate('/login');
     }
 
     if (!user) {
@@ -88,7 +90,7 @@ const UserProfile = () => {
                                             <CgPokemon fontSize={21}  />
                                         </button>
                                     )}
-                                    onSuccess={logout}
+                                    onLogoutSuccess={logout}
                                     cookiePolicy='single_host_origin'
                                 />
                             )}

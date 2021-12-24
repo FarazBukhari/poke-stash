@@ -6,13 +6,15 @@ import shareVideo from '../assets/share.mp4'
 import logo from '../assets/logo.png'
 import { client } from '../client'
 
+
+
 const Login = () => {
 
     const navigate = useNavigate();
     const responseGoogle = (response) => {
-        localStorage.setItem('user', JSON.stringify(response.profileObj));
+        localStorage.setItem('user', JSON.stringify(response?.profileObj));
 
-        const { name, googleId, imageUrl } = response.profileObj;
+        const { name, googleId, imageUrl } = response?.profileObj;
 
         const doc = {
             _id: googleId,
@@ -55,7 +57,7 @@ const Login = () => {
                                 onClick={renderProps.onClick}
                                 disabled={renderProps.disabled}
                             >
-                                <FcGoogle className='mr-4'/> Sign in with Google
+                                <FcGoogle className='mr-4' /> Sign in with Google
                             </button>
                         )}
                         onSuccess={responseGoogle}
