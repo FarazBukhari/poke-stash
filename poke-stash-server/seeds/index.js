@@ -19,7 +19,7 @@ const seedDB = async () => {
 
 	try {
 		const response = await axios
-			.get('https://pokeapi.co/api/v2/pokemon?limit=100')
+			.get('https://pokeapi.co/api/v2/pokemon?limit=1')
 			.then((res) => {
 				return res.data.results;
 			})
@@ -27,10 +27,24 @@ const seedDB = async () => {
 				return Promise.all(results.map((res) => axios.get(res.url)));
 			});
 
-		console.log(response.map((result) => result.data.name));
+		const result = response.map((result) => result.data);
+		new Pokemon({ abilities: `${result.abilities}`, base_experience: `${result.base_experience}` });
+		console.log(response.map((result) => result.data.types.map((types) => types.type.name)));
 	} catch (e) {
 		throw e;
 	}
+
+	// try {
+	// 	const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=100');
+	// 	const results = response?.data?.results || []
+	// 	console.log(results);
+	// 	for (let i = 0; i < results.length; i++){
+	// 		const single = await axios.get(results[i].url);
+	// 		console.log('single', single)
+	// 	}
+	// } catch (e) {
+	// 	throw e;
+	// }
 };
 
 seedDB();

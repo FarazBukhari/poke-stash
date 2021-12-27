@@ -11,28 +11,44 @@ ImageSchema.virtual('thumbnail').get(function() {
 });
 
 const PokemonSchema = new Schema({
+	_id: Number,
 	name: String,
-	url: String
-	// about: String,
-	// destination: String,
-	// category: String,
-	// image: ImageSchema,
-	// postedBy: {
-	// 	type: Schema.Types.ObjectId,
-	// 	ref: 'user'
-	// },
-	// saved: [
-	// 	{
-	// 		type: Schema.Types.ObjectId,
-	// 		ref: 'saved'
-	// 	}
-	// ],
-	// comments: [
-	// 	{
-	// 		type: Schema.Types.ObjectId,
-	// 		ref: 'comment'
-	// 	}
-	// ]
+	types: [
+		{
+			type: Schema.Types.ObjectId,
+			ref: 'type'
+		}
+	],
+	weight: Number,
+	height: Number,
+	base_experience: Number,
+	abilities: [
+		{
+			type: Schema.Types.ObjectId,
+			ref: 'ability'
+		}
+	],
+
+	about: String,
+	destination: String,
+	category: String,
+	image: ImageSchema,
+	postedBy: {
+		type: Schema.Types.ObjectId,
+		ref: 'user'
+	},
+	saved: [
+		{
+			type: Schema.Types.ObjectId,
+			ref: 'saved'
+		}
+	],
+	comments: [
+		{
+			type: Schema.Types.ObjectId,
+			ref: 'comment'
+		}
+	]
 });
 
 module.exports = mongoose.model('pokemon', PokemonSchema);
