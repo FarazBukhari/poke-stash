@@ -1,7 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const Pokemon = require('../models/pokemon');
+const Type = require('../models/type');
 const axios = require('axios');
+const { response } = require('express');
+const fetch = require('node-fetch');
 
 mongoose.connect('mongodb://localhost:27017/poke-stash', {
 	useNewUrlParser: true,
@@ -14,37 +17,38 @@ db.once('open', () => {
 	console.log('Database connected');
 });
 
-const seedDB = async () => {
-	// await Pokemon.deleteMany();
+const fetchPokemonData = (pokemon) => {
+	let url = pokemon.url;
+	fetch(url).then((response) => response.json()).then((pokeData) => {
+		seedDB(pokeData);
+	});
+};
 
+const fetchKantoPokemon = async () => {
+	await Pokemon.deleteMany({});
+	fetch('https://pokeapi.co/api/v2/pokemon?limit=150').then((response) => response.json()).then((allPokemon) => {
+		allPokemon.results.forEach((pokemon) => {
+			fetchPokemonData(pokemon);
+		});
+	});
+};
+
+const seedDB = async (pokeData) => {
 	try {
-		const response = await axios
-			.get('https://pokeapi.co/api/v2/pokemon?limit=1')
-			.then((res) => {
-				return res.data.results;
-			})
-			.then((results) => {
-				return Promise.all(results.map((res) => axios.get(res.url)));
-			});
-
-		const result = response.map((result) => result.data);
-		new Pokemon({ abilities: `${result.abilities}`, base_experience: `${result.base_experience}` });
-		console.log(response.map((result) => result.data.types.map((types) => types.type.name)));
+		const pokemon = new Pokemon({
+			_id: pokeData.id,
+			name: pokeData.name,
+			types: pokeData.types.map((types) => types.type.name),
+			weight: pokeData.weight,
+			height: pokeData.height,
+			abilities: pokeData.abilities.map((abilities) => abilities.ability.name),
+			base_experience: pokeData.base_experience
+		});
+		await pokemon.save();
 	} catch (e) {
 		throw e;
 	}
-
-	// try {
-	// 	const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=100');
-	// 	const results = response?.data?.results || []
-	// 	console.log(results);
-	// 	for (let i = 0; i < results.length; i++){
-	// 		const single = await axios.get(results[i].url);
-	// 		console.log('single', single)
-	// 	}
-	// } catch (e) {
-	// 	throw e;
-	// }
 };
 
-seedDB();
+// seedDB();
+fetchKantoPokemon();

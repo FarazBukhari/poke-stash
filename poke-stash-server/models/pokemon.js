@@ -14,19 +14,13 @@ const PokemonSchema = new Schema({
 	_id: Number,
 	name: String,
 	types: [
-		{
-			type: Schema.Types.ObjectId,
-			ref: 'type'
-		}
+		String
 	],
 	weight: Number,
 	height: Number,
 	base_experience: Number,
 	abilities: [
-		{
-			type: Schema.Types.ObjectId,
-			ref: 'ability'
-		}
+		String
 	],
 
 	about: String,
@@ -51,4 +45,4 @@ const PokemonSchema = new Schema({
 	]
 });
 
-module.exports = mongoose.model('pokemon', PokemonSchema);
+module.exports = mongoose.model('Pokemon', PokemonSchema);
