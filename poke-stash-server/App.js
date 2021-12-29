@@ -16,16 +16,22 @@ db.once('open', () => {
 	console.log('Database connected');
 });
 
-app.get('/', (req, res) => {
-	res.send('POKESTASH SERVER');
+app.use(express.static(path.join(__dirname, 'poke-stash-frontend/build')));
+
+app.get('/home', (req, res) => {
+	var list = [
+		'items1',
+		'items2',
+		'items3'
+	];
+	res.json(list);
+	console.log('Sent list of items');
 });
 
-app.get('/pokemon', async (req, res) => {
-	const pokemon = new Pokemon({ title: 'Pikachu', about: 'Sparky boi', category: 'Electric' });
-	await pokemon.save();
-	res.send(pokemon);
+app.get('*', (req, res) => {
+	//404 page
 });
 
-app.listen(3001, () => {
-	console.log('Serving on port 3001');
-});
+const port = process.env.PORT || 5000;
+app.listen(port);
+console.log('Serving on port ' + port);
