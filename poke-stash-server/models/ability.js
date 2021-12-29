@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const AbilitySchema = new Schema({
-	// _id: Number,
+	_id: Number,
 	name: String
 	// pokemon: [
 	// 	{
@@ -16,4 +16,4 @@ const AbilitySchema = new Schema({
 	// }
 });
 
-module.exports = mongoose.model('type', AbilitySchema);
+module.exports = mongoose.model('Ability', AbilitySchema);

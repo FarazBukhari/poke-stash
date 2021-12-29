@@ -14,7 +14,10 @@ const PokemonSchema = new Schema({
 	_id: Number,
 	name: String,
 	types: [
-		String
+		{
+			type: Number,
+			ref: 'Type'
+		}
 	],
 	weight: Number,
 	height: Number,
@@ -23,26 +26,26 @@ const PokemonSchema = new Schema({
 		String
 	],
 
-	about: String,
-	destination: String,
-	category: String,
-	image: ImageSchema,
-	postedBy: {
-		type: Schema.Types.ObjectId,
-		ref: 'user'
-	},
-	saved: [
-		{
-			type: Schema.Types.ObjectId,
-			ref: 'saved'
-		}
-	],
-	comments: [
-		{
-			type: Schema.Types.ObjectId,
-			ref: 'comment'
-		}
-	]
+	// about: String,
+	// destination: String,
+	// category: String,
+	image: ImageSchema
+	// postedBy: {
+	// 	type: Schema.Types.ObjectId,
+	// 	ref: 'user'
+	// },
+	// saved: [
+	// 	{
+	// 		type: Schema.Types.ObjectId,
+	// 		ref: 'saved'
+	// 	}
+	// ],
+	// comments: [
+	// 	{
+	// 		type: Schema.Types.ObjectId,
+	// 		ref: 'comment'
+	// 	}
+	// ]
 });
 
 module.exports = mongoose.model('Pokemon', PokemonSchema);
