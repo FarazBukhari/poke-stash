@@ -33,10 +33,10 @@ const addUser = async (req, res) => {
 	}
 };
 
-const getUserById = async function(req, res) {
+const getUserByUsername = async function(req, res) {
 	const reqData = req.query;
 	try {
-		let record = await User.findOne({ _id: reqData.id }).lean();
+		let record = await User.findOne({ userName: reqData.userName }).lean();
 		if (record) {
 			return commonFunctions.sendResponse(
 				res,
@@ -59,10 +59,10 @@ const getUserById = async function(req, res) {
 
 const updateUser = async function(req, res) {
 	const reqData = req.body;
-	const id = reqData.id;
+	const userName = reqData.userName;
 	delete reqData.id;
 	try {
-		let updatedRecord = await User.findOneAndUpdate({ _id: id }, reqData, { returnOriginal: false });
+		let updatedRecord = await User.findOneAndUpdate({ userName: userName }, reqData, { returnOriginal: false });
 		return commonFunctions.sendResponse(
 			res,
 			appConstants.CODE.SUCCESS,
@@ -105,7 +105,7 @@ const getAllUsers = async function(req, res) {
 
 module.exports = {
 	addUser: addUser,
-	getUserById: getUserById,
+	getUserByUsername: getUserByUsername,
 	getAllUsers: getAllUsers,
 	updateUser: updateUser,
 	deleteUser: deleteUser
