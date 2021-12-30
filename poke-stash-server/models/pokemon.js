@@ -13,23 +13,32 @@ ImageSchema.virtual('thumbnail').get(function() {
 const PokemonSchema = new Schema({
 	_id: Number,
 	name: String,
+	weight: Number,
+	height: Number,
+	base_experience: Number,
 	types: [
 		{
 			type: Number,
 			ref: 'Type'
 		}
 	],
-	weight: Number,
-	height: Number,
-	base_experience: Number,
 	abilities: [
-		String
+		{
+			type: Schema.Types.ObjectId,
+			ref: 'Ability'
+		}
 	],
+	image: ImageSchema,
 
+	comments: [
+		{
+			type: Schema.Types.ObjectId,
+			ref: 'Comment'
+		}
+	]
 	// about: String,
 	// destination: String,
 	// category: String,
-	image: ImageSchema
 	// postedBy: {
 	// 	type: Schema.Types.ObjectId,
 	// 	ref: 'user'
@@ -40,12 +49,6 @@ const PokemonSchema = new Schema({
 	// 		ref: 'saved'
 	// 	}
 	// ],
-	// comments: [
-	// 	{
-	// 		type: Schema.Types.ObjectId,
-	// 		ref: 'comment'
-	// 	}
-	// ]
 });
 
 module.exports = mongoose.model('Pokemon', PokemonSchema);

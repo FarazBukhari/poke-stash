@@ -4,9 +4,9 @@ const Schema = mongoose.Schema;
 const CommentSchema = new Schema({
 	comment: String,
 	postedBy: {
-		type: Schema.Types.ObjectId,
+		type: Number,
 		ref: 'user'
 	}
 });
 
-module.exports = mongoose.model('user', CommentSchema);
+module.exports = mongoose.model('Comment', CommentSchema);

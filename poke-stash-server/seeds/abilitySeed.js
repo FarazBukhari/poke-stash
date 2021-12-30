@@ -25,19 +25,31 @@ const fetchAbilityData = (ability) => {
 
 const fetchKantoAbilities = async () => {
 	await Ability.deleteMany({});
-	fetch('https://pokeapi.co/api/v2/ability').then((response) => response.json()).then((allAbility) => {
-		allAbility.results.forEach((ability) => {
-			fetchAbilityData(ability);
+	fetch('https://pokeapi.co/api/v2/ability?limit=327')
+		.then((response) => response.json())
+		.then((allAbility) => {
+			allAbility.results.forEach((ability) => {
+				fetchAbilityData(ability);
+			});
 		});
-	});
 };
 
 const abilitySeed = async (abilityData) => {
 	try {
+		// console.log(abilityData.effect_entries[abilityData.effect_entries.length === 2 ? 1 : 0].effect);
 		const ability = new Ability({
-			_id: `${abilityData.id}`,
-			name: `${abilityData.name}`
+			name: abilityData?.name,
+			effect_entries: {
+				effect: abilityData?.effect_entries[abilityData?.effect_entries.length === 2 ? 1 : 0]?.effect
+					? abilityData?.effect_entries[abilityData?.effect_entries.length === 2 ? 1 : 0]?.effect
+					: '',
+
+				short_effect: abilityData?.effect_entries[abilityData?.effect_entries.length === 2 ? 1 : 0]?.short_effect
+					? abilityData?.effect_entries[abilityData?.effect_entries.length === 2 ? 1 : 0]?.short_effect
+					: ''
+			}
 		});
+
 		await ability.save();
 	} catch (e) {
 		throw e;

@@ -27,7 +27,7 @@ const fetchPokemonData = (pokemon) => {
 
 const fetchKantoPokemon = async () => {
 	await Pokemon.deleteMany({});
-	fetch('https://pokeapi.co/api/v2/pokemon?limit=1').then((response) => response.json()).then((allPokemon) => {
+	fetch('https://pokeapi.co/api/v2/pokemon?limit=150').then((response) => response.json()).then((allPokemon) => {
 		allPokemon.results.forEach((pokemon) => {
 			fetchPokemonData(pokemon);
 		});
@@ -39,14 +39,12 @@ const getTypeId = async (pokeData) => {
 		return doc;
 	}).clone();
 	const ability = await Ability.find({ name: pokeData.abilities.map((abilities) => abilities.ability.name) });
-	// console.log('types', type);
 
 	await Pokemon.findOneAndUpdate(
 		{ _id: pokeData.id },
 		{ $push: { types: type, abilities: ability } },
 		{ returnOriginal: false }
 	);
-	// console.log('pokeLocal', pokeLocal);
 };
 
 const seedDB = async (pokeData) => {
@@ -56,7 +54,6 @@ const seedDB = async (pokeData) => {
 			name: pokeData.name,
 			weight: pokeData.weight,
 			height: pokeData.height,
-			abilities: pokeData.abilities.map((abilities) => abilities.ability.name),
 			base_experience: pokeData.base_experience
 		});
 
@@ -69,4 +66,3 @@ const seedDB = async (pokeData) => {
 
 // seedDB();
 fetchKantoPokemon();
-// getTypeId('grass');
