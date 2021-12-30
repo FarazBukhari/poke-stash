@@ -1,9 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
-const Pokemon = require('./models/pokemon');
+const bodyParser = require('body-parser');
+// const Pokemon = require('./models/pokemon');
 
 const app = express();
+
+require('dotenv').config();
 
 mongoose.connect('mongodb://localhost:27017/poke-stash', {
 	useNewUrlParser: true,
@@ -17,6 +20,22 @@ db.once('open', () => {
 });
 
 app.use(express.static(path.join(__dirname, 'poke-stash-frontend/build')));
+
+// for parsing application/json
+app.use(bodyParser.json());
+
+// for parsing application/xwww-
+app.use(bodyParser.urlencoded({ extended: true }));
+//form-urlencoded
+// for parsing multipart/form-data
+// app.use(upload.array());
+
+// Routes
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/userRoutes');
+
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
 
 app.get('/home', (req, res) => {
 	var list = [
