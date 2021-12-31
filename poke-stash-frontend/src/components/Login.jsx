@@ -14,11 +14,11 @@ const Login = () => {
     const navigate = useNavigate();
     const responseGoogle = async (response) => {
         localStorage.setItem('user', JSON.stringify(response?.profileObj));
-        
+
         const { name, googleId, imageUrl, email, givenName, familyName } = response?.profileObj;
 
         
-        const googleDoc = {
+        const doc = {
             _id: googleId,
             userName: email,
             image: imageUrl,
@@ -27,9 +27,9 @@ const Login = () => {
             lastName: familyName
         }
         
-        await axios.post(constants.api_urls.add_google_user, googleDoc).then(() => {
+        await axios.post(constants.api_urls.add_user, doc).then(() => {
             navigate('/', { replace: true })
-        });;
+        });
         
         //SANITY REMOVE LATER
         // const doc = {

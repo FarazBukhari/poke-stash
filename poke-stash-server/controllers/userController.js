@@ -1,40 +1,14 @@
 'use strict';
 const User = require('../models/user');
-const GoogleUser = require('../models/googleUser');
+// const GoogleUser = require('../models/googleUser');
 // const authFunctions = require('../middlewares/authToken');
-const crypto = require('../helpers/crypto');
+// const crypto = require('../helpers/crypto');
 // const randomize = require('randomatic');
 // const emailFunctions = require('../helpers/emails');
 const appConstants = require('../constants/common');
 const commonFunctions = require('../helpers/commonFunctions');
 
 const addUser = async (req, res) => {
-	const reqData = req.body;
-
-	if (!reqData.password) {
-		return commonFunctions.sendResponse(
-			res,
-			appConstants.CODE.BAD_REQUEST,
-			appConstants.RESPONSE_MESSAGES.FAIL.MISSING_PARAMS
-		);
-	}
-	try {
-		reqData.password = crypto.enCrypt(reqData.password);
-
-		let createUser = await User.create(reqData);
-		delete createUser._doc.password;
-		commonFunctions.sendResponse(
-			res,
-			appConstants.CODE.SUCCESS,
-			appConstants.RESPONSE_MESSAGES.SUCCESS.SIGN_UP,
-			createUser._doc
-		);
-	} catch (e) {
-		commonFunctions.sendResponse(res, e.code, e.message, e);
-	}
-};
-
-const addGoogleUser = async (req, res) => {
 	const reqData = req.body;
 
 	if (!reqData._id) {
@@ -45,8 +19,7 @@ const addGoogleUser = async (req, res) => {
 		);
 	}
 	try {
-		let createUser = await GoogleUser.create(reqData);
-		console.log('reqData', createUser);
+		let createUser = await User.create(reqData);
 		commonFunctions.sendResponse(
 			res,
 			appConstants.CODE.SUCCESS,
@@ -130,7 +103,6 @@ const getAllUsers = async function(req, res) {
 
 module.exports = {
 	addUser: addUser,
-	addGoogleUser: addGoogleUser,
 	getUserById: getUserById,
 	getAllUsers: getAllUsers,
 	updateUser: updateUser,
