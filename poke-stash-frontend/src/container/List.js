@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import constants from '../helpers/constants';
 
 const List = () => {
 	const [
@@ -10,8 +12,10 @@ const List = () => {
 		getList();
 	}, []);
 
-	const getList = () => {
-		fetch('/home').then((res) => res.json()).then((list) => setList(list));
+	const getList = async () => {
+		let getAllUsers = await axios.get(constants.api_urls.get_all_users);
+		// console.log('getAllUsers', getAllUsers);
+		setList(getAllUsers.data.data);
 	};
 
 	return (
@@ -20,7 +24,7 @@ const List = () => {
 			{list.length ? (
 				<div>
 					{list.map((item) => {
-						return <div>{item}</div>;
+						return <div>{item.userName}</div>;
 					})}
 				</div>
 			) : (

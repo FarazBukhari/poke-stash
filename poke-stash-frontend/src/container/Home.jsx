@@ -5,6 +5,7 @@ import { client } from '../client';
 import Pins from './Pins'
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { userQuery } from '../utils/data';
+import List from './List';
 import { HiMenu } from 'react-icons/hi';
 import logo from '../assets/logo.png';
 import { fetchUser } from '../utils/fetchUser';
@@ -43,8 +44,8 @@ const Home = () => {
                     <Link to='/'>
                         <img src={ logo } alt='logo' className='w-48'/>
                     </Link> 
-                    <Link to={'./home'}>
-                        <button variant="raised">
+                    <Link to={'./users'}>
+                        <button className='flex my-5 mb-3 gap-2 p-2 items-center bg-sky-200 hover:bg-sky-300 rounded-lg shadow-sm hover:shadow-lg mx-3'>
                             My List
                         </button>
                     </Link>
@@ -63,7 +64,8 @@ const Home = () => {
             </div>
             <div className='pb-2 flex-1 h-screen overflow-y-scroll' ref={scrollRef}>
                 <Routes>
-                    <Route path = '/user-profile/:userId' element={<UserProfile />} />
+                    <Route path='/user-profile/:userId' element={<UserProfile />} />
+			        <Route path="/users" element={<List />} />
                     <Route path='/*' element={<Pins user={ user && user }/>} />
                 </Routes>
             </div>

@@ -4,29 +4,45 @@ import { useNavigate } from 'react-router-dom'
 import { FcGoogle } from 'react-icons/fc'
 import shareVideo from '../assets/share.mp4'
 import logo from '../assets/logo.png'
+import axios from 'axios';
+import constants from '../helpers/constants';
 import { client } from '../client'
 
 
 
 const Login = () => {
-
     const navigate = useNavigate();
-    const responseGoogle = (response) => {
+    const responseGoogle = async (response) => {
         localStorage.setItem('user', JSON.stringify(response?.profileObj));
+        
+        const { name, googleId, imageUrl, email, givenName, familyName } = response?.profileObj;
 
-        const { name, googleId, imageUrl } = response?.profileObj;
-
-        const doc = {
+        
+        const googleDoc = {
             _id: googleId,
-            _type: 'user',
-            userName: name,
-            image: imageUrl
+            userName: email,
+            image: imageUrl,
+            name: name,
+            firstName: givenName,
+            lastName: familyName
         }
-
-        client.createIfNotExists(doc)
-            .then(() => {
-                navigate('/', { replace: true })
-            });
+        
+        await axios.post(constants.api_urls.add_google_user, googleDoc).then(() => {
+            navigate('/', { replace: true })
+        });;
+        
+        //SANITY REMOVE LATER
+        // const doc = {
+        //     _id: googleId,
+        //     _type: 'user',
+        //     userName: name,
+        //     image: imageUrl
+        // }
+        
+        // client.createIfNotExists(doc)
+        //     .then(() => {
+        //         navigate('/', { replace: true })
+        //     });
     }
 
     return (

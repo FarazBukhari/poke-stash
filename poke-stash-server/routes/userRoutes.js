@@ -5,7 +5,8 @@ const userController = require('../controllers/userController');
 // const authFunctions = require('../middlewares/authToken');
 
 router.post('/add', userController.addUser);
-router.get('/getByUsername', userController.getUserByUsername);
+router.post('/googleAdd', userController.addGoogleUser);
+router.get('/getById', userController.getUserById);
 router.put('/update', userController.updateUser);
 router.delete('/delete', userController.deleteUser);
 router.get('/getAll', userController.getAllUsers);

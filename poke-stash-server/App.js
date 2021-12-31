@@ -37,16 +37,6 @@ const usersRouter = require('./routes/userRoutes');
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-app.get('/home', (req, res) => {
-	var list = [
-		'items1',
-		'items2',
-		'items3'
-	];
-	res.json(list);
-	console.log('Sent list of items');
-});
-
 app.get('*', (req, res) => {
 	//404 page
 });

@@ -1,5 +1,6 @@
 'use strict';
 const User = require('../models/user');
+const GoogleUser = require('../models/googleUser');
 // const authFunctions = require('../middlewares/authToken');
 const crypto = require('../helpers/crypto');
 // const randomize = require('randomatic');
@@ -33,10 +34,34 @@ const addUser = async (req, res) => {
 	}
 };
 
-const getUserByUsername = async function(req, res) {
+const addGoogleUser = async (req, res) => {
+	const reqData = req.body;
+
+	if (!reqData._id) {
+		return commonFunctions.sendResponse(
+			res,
+			appConstants.CODE.BAD_REQUEST,
+			appConstants.RESPONSE_MESSAGES.FAIL.MISSING_PARAMS
+		);
+	}
+	try {
+		let createUser = await GoogleUser.create(reqData);
+		console.log('reqData', createUser);
+		commonFunctions.sendResponse(
+			res,
+			appConstants.CODE.SUCCESS,
+			appConstants.RESPONSE_MESSAGES.SUCCESS.SIGN_UP,
+			createUser._doc
+		);
+	} catch (e) {
+		commonFunctions.sendResponse(res, e.code, e.message, e);
+	}
+};
+
+const getUserById = async function(req, res) {
 	const reqData = req.query;
 	try {
-		let record = await User.findOne({ userName: reqData.userName }).lean();
+		let record = await User.findOne({ _id: reqData.id }).lean();
 		if (record) {
 			return commonFunctions.sendResponse(
 				res,
@@ -105,7 +130,8 @@ const getAllUsers = async function(req, res) {
 
 module.exports = {
 	addUser: addUser,
-	getUserByUsername: getUserByUsername,
+	addGoogleUser: addGoogleUser,
+	getUserById: getUserById,
 	getAllUsers: getAllUsers,
 	updateUser: updateUser,
 	deleteUser: deleteUser
