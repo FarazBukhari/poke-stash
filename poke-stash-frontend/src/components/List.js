@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import constants from '../helpers/constants';
+import Sidebar from './Sidebar';
 
 const List = () => {
 	const [
@@ -19,12 +20,12 @@ const List = () => {
 	};
 
 	return (
-		<div className="App">
-			<h1>List</h1>
+		<div className="mt-10 flex xl:flex-row flex-col m-auto bg-white">
+			<h1 className="pt-5 flex justify-center items-center md:items-start flex-initial">List</h1>
 			{list.length ? (
-				<div>
+				<div className="flex items-center justify-between">
 					{list.map((item) => {
-						return <div>{item.userName}</div>;
+						return <div>{item.name}</div>;
 					})}
 				</div>
 			) : (
