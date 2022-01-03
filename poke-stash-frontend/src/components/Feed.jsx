@@ -12,25 +12,37 @@ const Feed = () => {
     const [pins, setPins] = useState(null);
     const { categoryId } = useParams();
 
+
+    const fetchFeedDetails = async () => {
+        let query = await feedQuery();
+        console.log('queryData', query)
+        if (query) {
+            setPins(query.data.data);
+            setLoading(false);
+        }
+    };
+
+
     useEffect(() => {
         setLoading(true);
         if (categoryId) {
             setLoading(true);
-            const query = searchQuery(categoryId);
+            // const query = searchQuery(categoryId);
 
-            client.fetch(query)
-                .then((data) => {
-                    setPins(data);
-                    setLoading(false);
-                });
+            // client.fetch(query)
+            //     .then((data) => {
+            //         setPins(data);
+            //         setLoading(false);
+            //     });
         } else {
             setLoading(true);
 
-            client.fetch(feedQuery)
-                .then((data) => {
-                    setPins(data);
-                    setLoading(false);
-                });
+            fetchFeedDetails();
+            // client.fetch(feedQuery)
+            //     .then((data) => {
+            //         setPins(data);
+            //         setLoading(false);
+            //     });
         }
     }, [categoryId])
 

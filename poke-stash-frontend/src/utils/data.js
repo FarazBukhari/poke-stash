@@ -1,3 +1,5 @@
+import axios from 'axios';
+import constants from '../helpers/constants';
 export const categories = [
 	{
 		name: 'normal',
@@ -106,65 +108,71 @@ export const searchQuery = (searchTerm) => {
 	return query;
 };
 
-export const feedQuery = `*[_type == 'pin'] | order(_createdAt desc) {
-	image {
-		asset -> {
-			url
-		}
-	},
-	_id,
-	destination,
-	postedBy -> {
-		_id,
-		userName,
-		image
-	},
-	save[] {
-		_key,
-		postedBy -> {
-			_id,
-			userName,
-			image
-		},
-	},
-}`;
-
-export const pinDetailQuery = (pinId) => {
-	const query = `*[_type == "pin" && _id == '${pinId}']{
-	  image{
-		asset->{
-		  url
-		}
-	  },
-	  _id,
-	  title, 
-	  about,
-	  category,
-	  destination,
-	  postedBy->{
-		_id,
-		userName,
-		image
-	  },
-	 save[]{
-		postedBy->{
-		  _id,
-		  userName,
-		  image
-		},
-	  },
-	  comments[]{
-		comment,
-		_key,
-		postedBy->{
-		  _id,
-		  userName,
-		  image
-		},
-	  }
-	}`;
-	return query;
+export const feedQuery = async () => {
+	let pokeList = await axios.get(constants.api_urls.get_all_pokemon);
+	console.log('pokelIst', pokeList);
+	return pokeList;
 };
+// `*[_type == 'pin'] | order(_createdAt desc) {
+// 	image {
+// 		asset -> {
+// 			url
+// 		}
+// 	},
+// 	_id,
+// 	destination,
+// 	postedBy -> {
+// 		_id,
+// 		userName,
+// 		image
+// 	},
+// 	save[] {
+// 		_key,
+// 		postedBy -> {
+// 			_id,
+// 			userName,
+// 			image
+// 		},
+// 	},
+// }`;
+
+export const pinDetailQuery = async (pinId) => {
+	let pokePin = await axios.get(constants.api_urls.get_pokemon_by_id + pinId);
+	return pokePin;
+};
+// const query = `*[_type == "pin" && _id == '${pinId}']{
+//   image{
+// 	asset->{
+// 	  url
+// 	}
+//   },
+//   _id,
+//   title,
+//   about,
+//   category,
+//   destination,
+//   postedBy->{
+// 	_id,
+// 	userName,
+// 	image
+//   },
+//  save[]{
+// 	postedBy->{
+// 	  _id,
+// 	  userName,
+// 	  image
+// 	},
+//   },
+//   comments[]{
+// 	comment,
+// 	_key,
+// 	postedBy->{
+// 	  _id,
+// 	  userName,
+// 	  image
+// 	},
+//   }
+// }`;
 
 export const pinDetailMorePinQuery = (pin) => {
 	const query = `*[_type == "pin" && category == '${pin.category}' && _id != '${pin._id}' ]{

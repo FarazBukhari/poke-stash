@@ -40,9 +40,13 @@ const getTypeId = async (pokeData) => {
 	}).clone();
 	const ability = await Ability.find({ name: pokeData.abilities.map((abilities) => abilities.ability.name) });
 
+	const image = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${pokeData.id
+		.toString()
+		.padStart(3, '0')}.png`;
+
 	await Pokemon.findOneAndUpdate(
 		{ _id: pokeData.id },
-		{ $push: { types: type, abilities: ability } },
+		{ $push: { types: type, abilities: ability }, $set: { image: image } },
 		{ returnOriginal: false }
 	);
 };

@@ -5,7 +5,6 @@ import { client } from '../client';
 import Pins from './Pins'
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { userQuery } from '../utils/data';
-import List from '../components/List';
 import { HiMenu } from 'react-icons/hi';
 import logo from '../assets/logo.png';
 import { fetchUser } from '../utils/fetchUser';
@@ -65,7 +64,6 @@ const Home = () => {
             <div className='pb-2 flex-1 h-screen overflow-y-scroll' ref={scrollRef}>
                 <Routes>
                     <Route path='/user-profile/:userId' element={<UserProfile />} />
-			        <Route path="/users" element={<List />} />
                     <Route path='/*' element={<Pins user={ user && user }/>} />
                 </Routes>
             </div>

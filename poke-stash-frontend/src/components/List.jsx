@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import constants from '../helpers/constants';
-import Sidebar from './Sidebar';
 
 const List = () => {
 	const [
@@ -15,7 +14,6 @@ const List = () => {
 
 	const getList = async () => {
 		let getAllUsers = await axios.get(constants.api_urls.get_all_users);
-		// console.log('getAllUsers', getAllUsers);
 		setList(getAllUsers.data.data);
 	};
 
@@ -37,4 +35,4 @@ const List = () => {
 	);
 };
 
-export default List;
+export default List

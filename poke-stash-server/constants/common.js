@@ -70,8 +70,10 @@ module.exports = {
 
 			USER_DELETED: 'User has been deleted successfully.',
 			USER: 'User',
+			POKEMON: 'Pokemon',
 			USERS_LIST: 'Users list',
-			USER_UPDATED: 'User updated'
+			USER_UPDATED: 'User updated',
+			POKEMON_LIST: 'Pokemon list'
 		},
 		FAIL: {
 			MISSING_PARAMS: 'Please send all the required parameters.',

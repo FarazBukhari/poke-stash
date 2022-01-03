@@ -7,7 +7,7 @@ import { AiTwotoneDelete } from 'react-icons/ai';
 import { BsFillArrowUpRightCircleFill } from 'react-icons/bs';
 import { fetchUser } from '../utils/fetchUser';
 
-const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
+const Pin = ({ pin: { _id, image, postedBy, save, destination } }) => {
     const navigate = useNavigate();
 
     const [postHovered, setPostHovered] = useState(false);
@@ -50,13 +50,14 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
 
     return (
         <div className='m-2'>
+            {console.log('id:', image)}
             <div
                 onMouseEnter={() => setPostHovered(true)}
                 onMouseLeave={() => setPostHovered(false)}
                 onClick={() => navigate(`/pin-detail/${_id}`)}
-                className='relative cursor-zoom-in w-auto hover:shadow-lg hover:-scale-x-1 rounded-lg overflow-hidden transition-all duration-500 ease-in-out'
+                className='relative cursor-zoom-in w-auto hover:shadow-lg rounded-lg overflow-hidden transition-all duration-500 ease-in-out'
             >
-                <img className='rounded-lg w-full'alt='user-post' src={urlFor(image).width(250).url()}/>
+                <img className='rounded-lg w-full bg-gray-100'alt='user-post' src={image}/>
                 {postHovered && (
                     <div
                         className='absolute top-0 w-full h-full flex flex-col justify-between p-1 pr-2 pt-2 pb-2 z-50'
@@ -65,7 +66,8 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
                         <div className='flex item-center justify-between'>
                             <div className='flex gap-2'>
                                 <a
-                                    href={`${image?.asset?.url}?dl=`}
+                                    // href={`${image?.asset?.url}?dl=`}
+                                    href={`${image}`}
                                     download
                                     onClick={(e) => e.stopPropagation()}
                                     className='bg-white w-9 h-9 rounded-full flex items-center justify-center text-dark text-xl opacity-75 hover:opacity-100 hover:shadow-md outline-none'

@@ -28,7 +28,7 @@ const PokemonSchema = new Schema({
 			ref: 'Ability'
 		}
 	],
-	image: ImageSchema,
+	image: String,
 
 	comments: [
 		{
