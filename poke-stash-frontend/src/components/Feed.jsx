@@ -10,7 +10,7 @@ import Spinner from './Spinner';
 const Feed = () => {
     const [loading, setLoading] = useState(false);
     const [pins, setPins] = useState(null);
-    const { typeId } = useParams();
+    const { typeName } = useParams();
 
 
     const fetchFeedDetails = async () => {
@@ -22,12 +22,12 @@ const Feed = () => {
         }
     };
 
-    const fetchTypeDetails = async (typeId) => {
-        console.log('typeData', typeId)
-        let query = await typeQuery(typeId);
-        console.log('query me', query)
+    const fetchTypeDetails = async (typeName) => {
+        // console.log('typeData', typeName)
+        let query = await typeQuery(typeName);
+        // console.log('query me', query)
         if (query) {
-            setPins(query.data.data.pokemon);
+            setPins(query.data.data);
             setLoading(false);
         }
     };
@@ -35,10 +35,10 @@ const Feed = () => {
 
     useEffect(() => {
         setLoading(true);
-        if (typeId) {
+        if (typeName) {
             setLoading(true);
-            fetchTypeDetails(typeId);
-            // const query = searchQuery(typeId);
+            fetchTypeDetails(typeName);
+            // const query = searchQuery(typeName);
 
             // client.fetch(query)
             //     .then((data) => {
@@ -55,7 +55,7 @@ const Feed = () => {
             //         setLoading(false);
             //     });
         }
-    }, [typeId])
+    }, [typeName])
 
     if (loading) return <Spinner message='We are adding new Pokemon to your feed!' />
     

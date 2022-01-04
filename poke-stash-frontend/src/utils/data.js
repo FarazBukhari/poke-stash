@@ -112,11 +112,7 @@ export const searchQuery = async (searchTerm) => {
 };
 
 export const typeQuery = async (typeName) => {
-	let pokeList = await axios.get(constants.api_urls.get_type_by_name + typeName);
-
-	// let typeList = pokeList.data.data;
-	console.log('poeklist', pokeList);
-
+	let pokeList = await axios.get(constants.api_urls.get_pokemon_by_type + typeName);
 	return pokeList;
 };
 

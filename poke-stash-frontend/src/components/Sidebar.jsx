@@ -43,19 +43,19 @@ const Sidebar = ({ user, closeToggle }) => {
                         Home
                     </NavLink>
                     <h3 className='mt-2 px-5 text-white text-base 2xl:text-xl'>Pokemon Types</h3>
-                    {types.slice(0, types.length - 1).map(types => (
+                    {types.slice(0, types.length - 1).map(type => (
                         <NavLink
-                            to={`${constants.api_urls.get_pokemon_by_type + types._id}`}
+                            to={`/type/${type.name}`}
                             className={({ isActive }) => isActive ? isActiveStyle : isNotActiveStyle}
                             onClick={handleCloseSidebar}
-                            key={types.name}
+                            key={type.name}
                         >
                             <img
-                                src={types.image}
+                                src={type.image}
                                 className='w-8 h-8 rounded-full shadow-sm'
                                 alt='type'
                             />
-                            {types.name}
+                            {type.name}
                         </NavLink>
                     ))}
                 </div>
