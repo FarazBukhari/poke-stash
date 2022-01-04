@@ -38,7 +38,7 @@ const PokemonSchema = new Schema({
 	]
 	// about: String,
 	// destination: String,
-	// category: String,
+	// type: String,
 	// postedBy: {
 	// 	type: Schema.Types.ObjectId,
 	// 	ref: 'user'

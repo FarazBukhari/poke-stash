@@ -34,10 +34,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/userRoutes');
 const pokemonRouter = require('./routes/pokemonRoutes');
+const typeRouter = require('./routes/typeRoutes');
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/pokemon', pokemonRouter);
+app.use('/type', typeRouter);
 
 app.get('*', (req, res) => {
 	//404 page

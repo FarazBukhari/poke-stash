@@ -1,4 +1,5 @@
 const Pokemon = require('../models/pokemon');
+const Type = require('../models/type');
 const appConstants = require('../constants/common');
 const commonFunctions = require('../helpers/commonFunctions');
 
@@ -6,8 +7,41 @@ const getPokemonById = async (req, res) => {
 	const reqData = req.query;
 
 	try {
-		let record = await Pokemon.findOne({ _id: reqData.id }).lean();
-		console.log('Displaying', record.name);
+		let record = await Pokemon.findOne({ _id: reqData.id })
+			.populate({
+				path: 'types',
+				select: [
+					'name'
+				]
+			})
+			.lean();
+
+		// console.log('Displaying', record);
+		if (record) {
+			return commonFunctions.sendResponse(
+				res,
+				appConstants.CODE.SUCCESS,
+				appConstants.RESPONSE_MESSAGES.SUCCESS.POKEMON,
+				record
+			);
+		} else {
+			return commonFunctions.sendResponse(
+				res,
+				appConstants.CODE.NOT_FOUND,
+				appConstants.RESPONSE_MESSAGES.SUCCESS.NO_RECORD_FOUND,
+				record
+			);
+		}
+	} catch (e) {
+		return commonFunctions.sendResponse(res, e.code, e.message);
+	}
+};
+
+const getPokemonByType = async function(req, res) {
+	const reqData = req.query;
+	try {
+		console.log('reqData Types', reqData);
+		let record = await Pokemon.find({ types: reqData.id });
 		if (record) {
 			return commonFunctions.sendResponse(
 				res,
@@ -32,7 +66,7 @@ const getAllPokemon = async function(req, res) {
 	try {
 		let allRecords = await Pokemon.find();
 
-		console.log('All Pokemon displayed');
+		// console.log('All Pokemon displayed');
 		return commonFunctions.sendResponse(
 			res,
 			appConstants.CODE.SUCCESS,
@@ -46,5 +80,6 @@ const getAllPokemon = async function(req, res) {
 
 module.exports = {
 	getPokemonById: getPokemonById,
-	getAllPokemon: getAllPokemon
+	getAllPokemon: getAllPokemon,
+	getPokemonByType: getPokemonByType
 };

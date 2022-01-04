@@ -6,7 +6,8 @@ const constants = {
 		delete_user: '/users/delete',
 		get_user_by_id: '/users/getById',
 		get_all_pokemon: '/pokemon/getAll',
-		get_pokemon_by_id: '/pokemon/getById?id='
+		get_pokemon_by_id: '/pokemon/getById?id=',
+		get_pokemon_by_type: '/pokemon/getByType?id='
 	}
 };
 

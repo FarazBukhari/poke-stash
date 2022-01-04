@@ -50,7 +50,6 @@ const Pin = ({ pin: { _id, image, postedBy, save, destination } }) => {
 
     return (
         <div className='m-2'>
-            {console.log('id:', image)}
             <div
                 onMouseEnter={() => setPostHovered(true)}
                 onMouseLeave={() => setPostHovered(false)}

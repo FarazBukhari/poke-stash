@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { client } from '../client'
 import Spinner from './Spinner'
-import { categories } from '../utils/data'
+import { types } from '../utils/data'
 
 const CreatePin = ({ user }) => {
     const [title, setTitle] = useState('');
@@ -13,7 +13,7 @@ const CreatePin = ({ user }) => {
     const [destination, setDestination] = useState('');
     const [loading, setLoading] = useState(false);
     const [fields, setFields] = useState(false);
-    const [category, setCategory] = useState(null);
+    const [type, setType] = useState(null);
     const [imageAsset, setImageAsset] = useState(null);
     const [wrongImageType, setWrongImageType] = useState(false);
 
@@ -42,7 +42,7 @@ const CreatePin = ({ user }) => {
     };
 
     const savePin = () => {
-        if (title && about && destination && imageAsset?._id && category) {
+        if (title && about && destination && imageAsset?._id && type) {
             const doc = {
                 _type: 'pin',
                 title,
@@ -60,7 +60,7 @@ const CreatePin = ({ user }) => {
                     _type: 'postedBy',
                     _ref: user._id,
                 },
-                category,
+                type,
             };
 
             client.create(doc).then(() => {
@@ -152,19 +152,19 @@ const CreatePin = ({ user }) => {
                     />
                     <div className='flex flex-col'>
                         <div>
-                            <p className='mb-2 font-semibold text-lg sm:text-xl'>Choose Pin category</p>
+                            <p className='mb-2 font-semibold text-lg sm:text-xl'>Choose Pin type</p>
                             <select
-                                onChange={(e) => setCategory(e.target.value)}
+                                onChange={(e) => setType(e.target.value)}
                                 className='outline-none w-4/5 text-base border-b-2 border-gray-200 p-2 rounded-md cursor-pointer'
                             >
-                                <option value='other' className='bg-white'>Select category</option>
+                                <option value='other' className='bg-white'>Select type</option>
 
-                                {categories.map((category) => (
+                                {types.map((type) => (
                                     <option
                                         className='text-base border-0 outline-none capitalize bg-white text-black'
-                                        value={category.name}
+                                        value={type.name}
                                     >
-                                        {category.name}
+                                        {type.name}
                                     </option>
                                 ))}
 

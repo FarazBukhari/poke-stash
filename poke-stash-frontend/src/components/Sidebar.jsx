@@ -3,7 +3,7 @@ import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { RiHomeFill } from 'react-icons/ri';
 import { IoIosArrowForward } from 'react-icons/io';
 import logo from '../assets/logo.png'
-import { categories } from '../utils/data';
+import { types } from '../utils/data';
 import { GoogleLogout } from 'react-google-login';
 
 const Sidebar = ({ user, closeToggle }) => {
@@ -43,19 +43,19 @@ const Sidebar = ({ user, closeToggle }) => {
                         Home
                     </NavLink>
                     <h3 className='mt-2 px-5 text-white text-base 2xl:text-xl'>Pokemon Types</h3>
-                    {categories.slice(0, categories.length - 1).map(category => (
+                    {types.slice(0, types.length - 1).map(types => (
                         <NavLink
-                            to={`/category/${category.name}`}
+                            to={`${constants.api_urls.get_pokemon_by_type + types._id}`}
                             className={({ isActive }) => isActive ? isActiveStyle : isNotActiveStyle}
                             onClick={handleCloseSidebar}
-                            key={category.name}
+                            key={types.name}
                         >
                             <img
-                                src={category.image}
+                                src={types.image}
                                 className='w-8 h-8 rounded-full shadow-sm'
-                                alt='category'
+                                alt='type'
                             />
-                            {category.name}
+                            {types.name}
                         </NavLink>
                     ))}
                 </div>

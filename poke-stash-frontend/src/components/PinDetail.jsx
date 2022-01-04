@@ -45,7 +45,6 @@ const PinDetail = ({ user }) => {
 
     const fetchPinDetails = async () => {
         let query = await pinDetailQuery(pinId);
-        console.log('queryData', query.data.data)
         if (query) {
             setPinDetail(query.data.data)
         }
@@ -86,9 +85,7 @@ const PinDetail = ({ user }) => {
             <div className='flex xl:flex-row flex-col m-auto bg-white' style={{maxWidth: '1500px', borderRadius: '32px'}}>
                 <div className='flex justify-center items-center md:items-start flex-initial'>
                     <img
-                        src={pinDetail?.image
-                            // && urlFor(pinDetail.image).url()
-                        }
+                        src={ pinDetail?.image }
                         className='rounded-t-3xl rounded-b-lg'
                         alt='user-post'
                     />
@@ -98,7 +95,7 @@ const PinDetail = ({ user }) => {
                         <div className='flex gap-2 items-center'>
                         <a
                             // href={`${pinDetail?.image?.asset?.url}?dl=`}
-                            href = {pinDetail?.image}
+                            href = { pinDetail?.image }
                             download
                             onClick={(e) => e.stopPropagation()}
                             className='bg-white w-9 h-9 rounded-full flex items-center justify-center text-dark text-xl opacity-75 hover:opacity-100 hover:shadow-md outline-none'
@@ -114,8 +111,9 @@ const PinDetail = ({ user }) => {
                         <h1 className='text-4xl font-bold break-words capitalize mt-3'>
                             {pinDetail.name}
                         </h1>
-                        <p className='mt-3'>Type: {pinDetail.types.toString()}</p>
-                        <p className='mt-3'>Abilities: {pinDetail.abilities.toString()}</p>
+                        {console.log('pinDetail', pinDetail)}
+                        <p className='mt-3 capitalize'>Type: {pinDetail.types.map(types => types.name).join(', ')}</p>
+                        <p className='mt-3'>Abilities: {pinDetail.abilities.map(abilities => abilities.name).join(', ')}</p>
                         <p className='mt-3'>Height: {pinDetail.height}</p>
                         <p className='mt-3'>Weight: {pinDetail.weight}</p>
                         <p className='mt-3'>Base Experience: {pinDetail.base_experience}</p>

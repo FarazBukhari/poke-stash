@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { client } from '../client';
-import { feedQuery, searchQuery } from '../utils/data';
+import { feedQuery, searchQuery, typeQuery } from '../utils/data';
 import MasonryLayout from './MasonryLayout';
 import Spinner from './Spinner';
 
@@ -10,14 +10,24 @@ import Spinner from './Spinner';
 const Feed = () => {
     const [loading, setLoading] = useState(false);
     const [pins, setPins] = useState(null);
-    const { categoryId } = useParams();
+    const { typeId } = useParams();
 
 
     const fetchFeedDetails = async () => {
         let query = await feedQuery();
-        console.log('queryData', query)
+        // console.log('queryData', query)
         if (query) {
             setPins(query.data.data);
+            setLoading(false);
+        }
+    };
+
+    const fetchTypeDetails = async (typeId) => {
+        console.log('typeData', typeId)
+        let query = await typeQuery(typeId);
+        console.log('query me', query)
+        if (query) {
+            setPins(query.data.data.pokemon);
             setLoading(false);
         }
     };
@@ -25,9 +35,10 @@ const Feed = () => {
 
     useEffect(() => {
         setLoading(true);
-        if (categoryId) {
+        if (typeId) {
             setLoading(true);
-            // const query = searchQuery(categoryId);
+            fetchTypeDetails(typeId);
+            // const query = searchQuery(typeId);
 
             // client.fetch(query)
             //     .then((data) => {
@@ -44,11 +55,11 @@ const Feed = () => {
             //         setLoading(false);
             //     });
         }
-    }, [categoryId])
+    }, [typeId])
 
     if (loading) return <Spinner message='We are adding new Pokemon to your feed!' />
     
-    if(!pins?.length) return <h2>No pokemon in this category yet</h2>
+    if(!pins?.length) return <h2>No pokemon in this type yet</h2>
 
     return (
         <div>
