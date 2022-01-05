@@ -17,19 +17,23 @@ const Login = () => {
 
         const { name, googleId, imageUrl, email, givenName, familyName } = response?.profileObj;
 
-        
-        const doc = {
-            _id: googleId,
-            userName: email,
-            image: imageUrl,
-            name: name,
-            firstName: givenName,
-            lastName: familyName
-        }
-        
-        await axios.post(constants.api_urls.add_user, doc).then(() => {
+        if (await axios.get(constants.api_urls.get_user_by_id + googleId)) {
             navigate('/', { replace: true })
-        });
+        }
+        else {
+            const doc = {
+                _id: googleId,
+                userName: email,
+                image: imageUrl,
+                name: name,
+                firstName: givenName,
+                lastName: familyName
+            }
+            
+            await axios.post(constants.api_urls.add_user, doc).then(() => {
+                navigate('/', { replace: true })
+            });
+        }
         
         //SANITY REMOVE LATER
         // const doc = {

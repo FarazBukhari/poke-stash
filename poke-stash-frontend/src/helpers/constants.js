@@ -4,7 +4,7 @@ const constants = {
 		add_user: '/users/add',
 		update_user: '/users/update',
 		delete_user: '/users/delete',
-		get_user_by_id: '/users/getById',
+		get_user_by_id: '/users/getById?id=',
 		get_all_pokemon: '/pokemon/getAll',
 		get_pokemon_by_id: '/pokemon/getById?id=',
 		get_pokemon_by_type: '/pokemon/getByType?name='
