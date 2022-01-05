@@ -1,6 +1,6 @@
 const Pokemon = require('../models/pokemon');
 const Type = require('../models/type');
-const ability = require('../models/ability');
+const Ability = require('../models/ability');
 const appConstants = require('../constants/common');
 const commonFunctions = require('../helpers/commonFunctions');
 

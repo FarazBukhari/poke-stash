@@ -47,6 +47,12 @@ const PinDetail = ({ user }) => {
         let query = await pinDetailQuery(pinId);
         if (query) {
             setPinDetail(query.data.data)
+
+            if (query.data.data) {
+                query = pinDetailMorePinQuery(query.data.data).then((res) => {
+                    setPins(res.data.data)
+                })
+            }
         }
     };
 
@@ -111,7 +117,7 @@ const PinDetail = ({ user }) => {
                         <h1 className='text-4xl font-bold break-words capitalize mt-3'>
                             {pinDetail.name}
                         </h1>
-                        {console.log('pinDetail', pinDetail)}
+                        {/* {console.log('pinDetail', pinDetail)} */}
                         <p className='mt-3 capitalize'><strong>Type:</strong> {pinDetail.types.map(types => types.name).join(', ')}</p>
                         <p className='mt-3 capitalize'><strong>Abilities:</strong> {pinDetail.abilities.map(abilities => abilities.name).join(', ')}</p>
                         <p className='mt-3'><strong>Height:</strong> {pinDetail.height}</p>
@@ -179,7 +185,6 @@ const PinDetail = ({ user }) => {
                 <h2 className='text-center font-bold text-2x mt-8 mb-4'>
                     More like this
                 </h2>
-                        
                 <MasonryLayout pins={ pins } />
             </>
             ) : (

@@ -181,29 +181,8 @@ export const pinDetailQuery = async (pinId) => {
 //   }
 // }`;
 
-export const pinDetailMorePinQuery = (pin) => {
-	const query = `*[_type == "pin" && type == '${pin.types}' && _id != '${pin._id}' ]{
-	  image{
-		asset->{
-		  url
-		}
-	  },
-	  _id,
-	  destination,
-	  postedBy->{
-		_id,
-		userName,
-		image
-	  },
-	  save[]{
-		_key,
-		postedBy->{
-		  _id,
-		  userName,
-		  image
-		},
-	  },
-	}`;
+export const pinDetailMorePinQuery = async (pin) => {
+	const query = await axios.get(constants.api_urls.get_pokemon_by_type + pin.types.map((type) => type.name)[0]);
 	return query;
 };
 
