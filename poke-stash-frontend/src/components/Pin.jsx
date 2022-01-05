@@ -7,7 +7,7 @@ import { AiTwotoneDelete } from 'react-icons/ai';
 import { BsFillArrowUpRightCircleFill } from 'react-icons/bs';
 import { fetchUser } from '../utils/fetchUser';
 
-const Pin = ({ pin: { _id, image, postedBy, save, destination } }) => {
+const Pin = ({ pin: { _id, name, image, postedBy, save, destination } }) => {
     const navigate = useNavigate();
 
     const [postHovered, setPostHovered] = useState(false);
@@ -49,27 +49,27 @@ const Pin = ({ pin: { _id, image, postedBy, save, destination } }) => {
     }
 
     return (
-        <div className='m-2'>
+        <div className='m-2 pb-5'>
             <div
                 onMouseEnter={() => setPostHovered(true)}
                 onMouseLeave={() => setPostHovered(false)}
                 onClick={() => navigate(`/pin-detail/${_id}`)}
-                className='relative cursor-zoom-in w-auto hover:shadow-lg rounded-lg overflow-hidden transition-all duration-500 ease-in-out'
+                className='relative cursor-zoom-in w-auto hover:shadow-lg bg-white rounded-lg overflow-hidden transition-all duration-500 ease-in-out'
             >
                 <img className='rounded-lg w-full bg-white'alt='user-post' src={image}/>
                 {postHovered && (
                     <div
-                        className='absolute top-0 w-full h-full flex flex-col justify-between p-1 pr-2 pt-2 pb-2 z-50'
+                        className='absolute top-0 w-full h-full flex flex-col justify-between pt-2 z-50'
                         // style = {{height: '100%'}}
                     >
-                        <div className='flex item-center justify-between'>
+                        <div className='flex items-center justify-between p-1 pr-2 pb-2'>
                             <div className='flex gap-2'>
                                 <a
                                     // href={`${image?.asset?.url}?dl=`}
                                     href={`${image}`}
                                     download
                                     onClick={(e) => e.stopPropagation()}
-                                    className='bg-white w-9 h-9 rounded-full flex items-center justify-center text-dark text-xl opacity-75 hover:opacity-100 hover:shadow-md outline-none'
+                                    className='bg-gray-100 w-9 h-9 rounded-full flex items-center justify-center text-dark text-xl opacity-75 hover:opacity-100 hover:shadow-md outline-none'
                                 >
                                     <MdDownloadForOffline />
                                 </a>
@@ -91,8 +91,9 @@ const Pin = ({ pin: { _id, image, postedBy, save, destination } }) => {
                                 </button>
                             )}
                         </div>
-                        <div className='flex justify-between items-center gap-2 w-full'>
-                            {destination && (
+                        {/* <div className='flex justify-center items-center bg-black opacity-70 h-20 w-full'>
+                            <p className='text-white font-bold capitalize'>{ name }</p> */}
+                            {/* {destination && (
                                 <a
                                     href={destination}
                                     target="_blank"
@@ -102,9 +103,9 @@ const Pin = ({ pin: { _id, image, postedBy, save, destination } }) => {
                                     <BsFillArrowUpRightCircleFill />
                                     {destination.length > 20 ? destination.slice(8, 20) : destination.slice(8)}
                                 </a>
-                            )}
+                            )} */}
 
-                            {postedBy?._id === user?.googleId && (
+                            {/* {postedBy?._id === user?.googleId && (
                                 <button
                                     type='button'
                                     onClick={(e) => {
@@ -115,13 +116,16 @@ const Pin = ({ pin: { _id, image, postedBy, save, destination } }) => {
                                 >
                                     <AiTwotoneDelete />
                                 </button>
-                            )}
+                            )} */}
+                        {/* </div> */}
+                        <div className='flex justify-center items-center bg-sky-300 opacity-90 h-20 w-full'>
+                            <p className='text-white font-bold uppercase text-3xl'>{ name }</p>
                         </div>
                     </div>
                         
                 )}
             </div>
-            <Link
+            {/* <Link
                 to={`user-profile/${postedBy?._id}`}
                 className='flex gap-2 mt-2 items-center'
             >
@@ -130,7 +134,7 @@ const Pin = ({ pin: { _id, image, postedBy, save, destination } }) => {
                     src={postedBy?.image}
                 />
                 <p className='font-semibold capitalize'>{postedBy?.userName}</p>
-            </Link>
+            </Link> */}
         </div>
     )
 }
