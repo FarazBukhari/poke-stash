@@ -15,7 +15,6 @@ const Feed = () => {
 
     const fetchFeedDetails = async () => {
         let query = await feedQuery();
-        // console.log('queryData', query)
         if (query) {
             setPins(query.data.data);
             setLoading(false);
@@ -23,9 +22,7 @@ const Feed = () => {
     };
 
     const fetchTypeDetails = async (typeName) => {
-        // console.log('typeData', typeName)
         let query = await typeQuery(typeName);
-        // console.log('query me', query)
         if (query) {
             setPins(query.data.data);
             setLoading(false);
@@ -38,28 +35,15 @@ const Feed = () => {
         if (typeName) {
             setLoading(true);
             fetchTypeDetails(typeName);
-            // const query = searchQuery(typeName);
-
-            // client.fetch(query)
-            //     .then((data) => {
-            //         setPins(data);
-            //         setLoading(false);
-            //     });
         } else {
             setLoading(true);
-
             fetchFeedDetails();
-            // client.fetch(feedQuery)
-            //     .then((data) => {
-            //         setPins(data);
-            //         setLoading(false);
-            //     });
         }
     }, [typeName])
 
     if (loading) return <Spinner message='We are adding new Pokemon to your feed!' />
     
-    if(!pins?.length) return <h2>No pokemon in this type yet</h2>
+    if(!pins?.length) return <h2>No pokemon of this type discovered yet</h2>
 
     return (
         <div>

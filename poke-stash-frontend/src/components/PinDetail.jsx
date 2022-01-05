@@ -113,7 +113,7 @@ const PinDetail = ({ user }) => {
                         </h1>
                         {console.log('pinDetail', pinDetail)}
                         <p className='mt-3 capitalize'>Type: {pinDetail.types.map(types => types.name).join(', ')}</p>
-                        <p className='mt-3'>Abilities: {pinDetail.abilities.map(abilities => abilities.name).join(', ')}</p>
+                        <p className='mt-3 capitalize'>Abilities: {pinDetail.abilities.map(abilities => abilities.name).join(', ')}</p>
                         <p className='mt-3'>Height: {pinDetail.height}</p>
                         <p className='mt-3'>Weight: {pinDetail.weight}</p>
                         <p className='mt-3'>Base Experience: {pinDetail.base_experience}</p>

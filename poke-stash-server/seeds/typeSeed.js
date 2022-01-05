@@ -5,7 +5,6 @@ const Pokemon = require('../models/pokemon');
 const axios = require('axios');
 const { response } = require('express');
 const fetch = require('node-fetch');
-const pokemon = require('../models/pokemon');
 
 mongoose.connect('mongodb://localhost:27017/poke-stash', {
 	useNewUrlParser: true,

@@ -38,7 +38,12 @@ const getTypeId = async (pokeData) => {
 	const type = await Type.find({ name: pokeData.types.map((types) => types.type.name) }, function(doc) {
 		return doc;
 	}).clone();
-	const ability = await Ability.find({ name: pokeData.abilities.map((abilities) => abilities.ability.name) });
+	const ability = await Ability.find(
+		{ name: pokeData.abilities.map((abilities) => abilities.ability.name) },
+		function(doc) {
+			return doc;
+		}
+	).clone();
 
 	const image = `https://assets.pokemon.com/assets/cms2/img/pokedex/full/${pokeData.id
 		.toString()

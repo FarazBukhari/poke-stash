@@ -70,7 +70,7 @@ const Sidebar = ({ user, closeToggle }) => {
                         onClick={renderProps.onClick}
                         disabled={renderProps.disabled}
                     >
-                        <img src={user.image} className='w-10 h-10 rounded-full' alt='user-profile' />
+                        <img src={user.image} className='w-10 h-10 rounded-full' alt='user' />
                         <p>Logout</p>
                     </button>
                 )}

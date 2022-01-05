@@ -24,7 +24,7 @@ const PokemonSchema = new Schema({
 	],
 	abilities: [
 		{
-			type: Schema.Types.ObjectId,
+			type: Number,
 			ref: 'Ability'
 		}
 	],

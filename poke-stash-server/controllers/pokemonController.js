@@ -1,5 +1,6 @@
 const Pokemon = require('../models/pokemon');
 const Type = require('../models/type');
+const ability = require('../models/ability');
 const appConstants = require('../constants/common');
 const commonFunctions = require('../helpers/commonFunctions');
 
@@ -10,6 +11,12 @@ const getPokemonById = async (req, res) => {
 		let record = await Pokemon.findOne({ _id: reqData.id })
 			.populate({
 				path: 'types',
+				select: [
+					'name'
+				]
+			})
+			.populate({
+				path: 'abilities',
 				select: [
 					'name'
 				]
