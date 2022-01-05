@@ -81,34 +81,11 @@ export const userQuery = (userId) => {
 	return query;
 };
 
-export const searchQuery = async (searchTerm) => {
-	let pokeList = await axios.get(constants.api_urls.get_all_pokemon);
-
-	// console.log('poeklist', pokeList);
-
-	return pokeList;
-	// 	`*[_type == "pin" && title match '${searchTerm}*' || type match '${searchTerm}*' || about match '${searchTerm}*'] {
-	// 	image {
-	// 		asset -> {
-	// 			url
-	// 		}
-	// 	},
-	// 	_id,
-	// 	destination,
-	// 	postedBy -> {
-	// 		_id,
-	// 		userName,
-	// 		image
-	// 	},
-	// 	save[] {
-	// 		_key,
-	// 		postedBy -> {
-	// 			_id,
-	// 			userName,
-	// 			image
-	// 		},
-	// 	},
-	// }`;
+export const searchQuery = async (searchTerm, pins) => {
+	let searchData = await axios.get(
+		constants.api_urls.get_pokemon_by_id + pins.find(({ name }) => name === searchTerm)?._id
+	);
+	return searchData;
 };
 
 export const typeQuery = async (typeName) => {
@@ -120,66 +97,11 @@ export const feedQuery = async () => {
 	let pokeList = await axios.get(constants.api_urls.get_all_pokemon);
 	return pokeList;
 };
-// `*[_type == 'pin'] | order(_createdAt desc) {
-// 	image {
-// 		asset -> {
-// 			url
-// 		}
-// 	},
-// 	_id,
-// 	destination,
-// 	postedBy -> {
-// 		_id,
-// 		userName,
-// 		image
-// 	},
-// 	save[] {
-// 		_key,
-// 		postedBy -> {
-// 			_id,
-// 			userName,
-// 			image
-// 		},
-// 	},
-// }`;
 
 export const pinDetailQuery = async (pinId) => {
 	let pokePin = await axios.get(constants.api_urls.get_pokemon_by_id + pinId);
 	return pokePin;
 };
-// const query = `*[_type == "pin" && _id == '${pinId}']{
-//   image{
-// 	asset->{
-// 	  url
-// 	}
-//   },
-//   _id,
-//   title,
-//   about,
-//   type,
-//   destination,
-//   postedBy->{
-// 	_id,
-// 	userName,
-// 	image
-//   },
-//  save[]{
-// 	postedBy->{
-// 	  _id,
-// 	  userName,
-// 	  image
-// 	},
-//   },
-//   comments[]{
-// 	comment,
-// 	_key,
-// 	postedBy->{
-// 	  _id,
-// 	  userName,
-// 	  image
-// 	},
-//   }
-// }`;
 
 export const pinDetailMorePinQuery = async (pin) => {
 	const query = await axios.get(constants.api_urls.get_pokemon_by_type + pin.types.map((type) => type.name)[0]);

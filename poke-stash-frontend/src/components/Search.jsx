@@ -8,22 +8,36 @@ const Search = ({ searchTerm }) => {
     const [pins, setPins] = useState(null);
     const [loading, setLoading] = useState(false);
 
+    const fetchFeedDetails = async () => {
+        let query = await feedQuery();
+        if (query) {
+            setPins(query.data.data);
+            setLoading(false);
+        }
+    };
+
+    const fetchSearchDetails = async (searchTerm) => {
+        let query = await searchQuery(searchTerm, pins);
+        console.log('pins',query)
+        if (query) {
+            setPins([query.data.data]);
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
         if (searchTerm !== '') {
             setLoading(true);
-            const query = searchQuery(searchTerm.toLowerCase());
-            client.fetch(query)
-                .then((data) => {
-                    setPins(data);
-                    setLoading(false);
-                })
+            fetchSearchDetails(searchTerm.toLowerCase());
+            // const query = searchQuery(searchTerm.toLowerCase());
+            // client.fetch(query)
+            //     .then((data) => {
+            //         setPins(data);
+            //         setLoading(false);
+            //     })
         } else {
-            client.fetch(feedQuery)
-                .then((data) => {
-                    setPins(data);
-                    setLoading(false);
-                })
+            setLoading(true);
+            fetchFeedDetails();
         }
     }, [searchTerm])
 
