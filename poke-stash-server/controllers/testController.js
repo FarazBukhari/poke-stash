@@ -15,6 +15,11 @@ const getTest = async function(req, res) {
 				$match: { types: typeRecords._id }
 			},
 			{
+				$sort: {
+					_id: 1
+				}
+			},
+			{
 				$project: {
 					_id: 0,
 					name: 1

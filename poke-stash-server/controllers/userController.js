@@ -1,6 +1,5 @@
 'use strict';
 const User = require('../models/user');
-// const GoogleUser = require('../models/googleUser');
 // const authFunctions = require('../middlewares/authToken');
 // const crypto = require('../helpers/crypto');
 // const randomize = require('randomatic');

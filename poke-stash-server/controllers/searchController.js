@@ -6,10 +6,7 @@ const Type = require('../models/type');
 const getSearch = async function(req, res) {
 	const reqData = req.query;
 	try {
-		console.log('Searched', reqData);
-
 		let typeRecords = await Type.findOne({ name: reqData.searchTerm });
-		console.log(typeRecords);
 
 		if (typeRecords) {
 			let allRecords = await Pokemon.aggregate([
@@ -17,7 +14,6 @@ const getSearch = async function(req, res) {
 					$match: { types: typeRecords._id }
 				}
 			]).sort({ _id: 1 });
-			// console.log('allReacords', allRecords);
 			return commonFunctions.sendResponse(
 				res,
 				appConstants.CODE.SUCCESS,
@@ -31,7 +27,6 @@ const getSearch = async function(req, res) {
 					$match: { name: reqData.searchTerm }
 				}
 			]).sort({ _id: 1 });
-			// console.log('allReacords', allRecords);
 			return commonFunctions.sendResponse(
 				res,
 				appConstants.CODE.SUCCESS,

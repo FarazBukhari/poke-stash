@@ -28,7 +28,6 @@ const Search = ({ searchTerm }) => {
         if (searchTerm !== '') {
             setLoading(true);
             fetchSearchDetails(searchTerm.toLowerCase());
-            console.log('useEffect called', searchTerm)
         }
         else {
             setLoading(true);
