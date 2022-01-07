@@ -82,11 +82,8 @@ export const userQuery = (userId) => {
 };
 
 export const searchQuery = async (searchTerm) => {
-	console.log('searchyman', searchTerm);
 	let searchData = await axios.get(constants.api_urls.get_search + searchTerm);
-	console.log('searcchData', searchData);
-	let searchResults = searchData;
-	return searchResults;
+	return searchData;
 };
 
 export const typeQuery = async (typeName) => {

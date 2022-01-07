@@ -16,7 +16,7 @@ const getSearch = async function(req, res) {
 				{
 					$match: { types: typeRecords._id }
 				}
-			]);
+			]).sort({ _id: 1 });
 			// console.log('allReacords', allRecords);
 			return commonFunctions.sendResponse(
 				res,
@@ -24,12 +24,13 @@ const getSearch = async function(req, res) {
 				appConstants.RESPONSE_MESSAGES.SUCCESS.POKEMON_LIST,
 				allRecords
 			);
-		} else {
+		}
+		if (!typeRecords) {
 			let allRecords = await Pokemon.aggregate([
 				{
 					$match: { name: reqData.searchTerm }
 				}
-			]);
+			]).sort({ _id: 1 });
 			// console.log('allReacords', allRecords);
 			return commonFunctions.sendResponse(
 				res,

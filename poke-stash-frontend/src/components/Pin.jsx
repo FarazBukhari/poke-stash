@@ -121,7 +121,7 @@ const Pin = ({ pin: { _id, name, image, postedBy, save, destination } }) => {
                             )} */}
                         {/* </div> */}
                         <div className='flex justify-center items-center bg-sky-300 opacity-90 h-20 w-full'>
-                            <p className='text-white font-bold uppercase text-3xl'>{ name }</p>
+                            <p className='text-white font-bold uppercase text-3xl'>{ _id } - { name }</p>
                         </div>
                     </div>
                         

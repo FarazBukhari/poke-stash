@@ -9,6 +9,7 @@ const getPokemonById = async (req, res) => {
 
 	try {
 		let record = await Pokemon.findOne({ _id: reqData.id })
+			.sort({ _id: 1 })
 			.populate({
 				path: 'types',
 				select: [
@@ -49,7 +50,7 @@ const getPokemonByType = async function(req, res) {
 	try {
 		// console.log('reqData Types', reqData);
 		let typeRecord = await Type.findOne({ name: reqData.name });
-		let record = await Pokemon.find({ types: typeRecord._id });
+		let record = await Pokemon.find({ types: typeRecord._id }).sort({ _id: 1 });
 		if (record) {
 			return commonFunctions.sendResponse(
 				res,
@@ -72,7 +73,7 @@ const getPokemonByType = async function(req, res) {
 
 const getAllPokemon = async function(req, res) {
 	try {
-		let allRecords = await Pokemon.find();
+		let allRecords = await Pokemon.find().sort({ _id: 1 });
 
 		// console.log('All Pokemon displayed');
 		return commonFunctions.sendResponse(

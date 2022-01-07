@@ -17,10 +17,7 @@ const Search = ({ searchTerm }) => {
     };
 
     const fetchSearchDetails = async (searchTerm) => {
-
-        console.log('fetchSearch')
         let query = await searchQuery(searchTerm);
-        console.log('searchQuery',query)
         if (query) {
             setPins(query.data.data);
             setLoading(false);
@@ -30,8 +27,8 @@ const Search = ({ searchTerm }) => {
     useEffect(() => {
         if (searchTerm !== '') {
             setLoading(true);
-            console.log('useEffect called', searchTerm)
             fetchSearchDetails(searchTerm.toLowerCase());
+            console.log('useEffect called', searchTerm)
         }
         else {
             setLoading(true);
