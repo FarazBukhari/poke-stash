@@ -54,7 +54,7 @@ const Pin = ({ pin: { _id, name, image, postedBy, save, destination } }) => {
                 onMouseEnter={() => setPostHovered(true)}
                 onMouseLeave={() => setPostHovered(false)}
                 onClick={() => navigate(`/pin-detail/${_id}`)}
-                className='relative cursor-zoom-in w-auto hover:shadow-lg bg-white rounded-lg overflow-hidden transition-all duration-500 ease-in-out'
+                className='relative cursor-pointer w-auto hover:shadow-lg bg-white rounded-lg overflow-hidden transition-all duration-500 ease-in-out'
             >
                 <img className='rounded-lg w-full bg-white'alt='user-post' src={image}/>
                 {postHovered && (
@@ -70,6 +70,8 @@ const Pin = ({ pin: { _id, name, image, postedBy, save, destination } }) => {
                                     download
                                     onClick={(e) => e.stopPropagation()}
                                     className='bg-gray-100 w-9 h-9 rounded-full flex items-center justify-center text-dark text-xl opacity-75 hover:opacity-100 hover:shadow-md outline-none'
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                 >
                                     <MdDownloadForOffline />
                                 </a>

@@ -81,11 +81,12 @@ export const userQuery = (userId) => {
 	return query;
 };
 
-export const searchQuery = async (searchTerm, pins) => {
-	let searchData = await axios.get(
-		constants.api_urls.get_pokemon_by_id + pins.find(({ name }) => name === searchTerm)?._id
-	);
-	return searchData;
+export const searchQuery = async (searchTerm) => {
+	console.log('searchyman', searchTerm);
+	let searchData = await axios.get(constants.api_urls.get_search + searchTerm);
+	console.log('searcchData', searchData);
+	let searchResults = searchData;
+	return searchResults;
 };
 
 export const typeQuery = async (typeName) => {

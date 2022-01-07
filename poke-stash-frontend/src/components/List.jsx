@@ -13,17 +13,27 @@ const List = () => {
 	}, []);
 
 	const getList = async () => {
-		let getAllUsers = await axios.get(constants.api_urls.get_all_users);
-		setList(getAllUsers.data.data);
+		let getTest = await axios.get(constants.api_urls.get_test);
+		console.log('getTest', getTest)
+		setList(getTest.data.data);
 	};
 
 	return (
-		<div className="mt-10 flex xl:flex-row flex-col m-auto bg-white">
-			<h1 className="pt-5 flex justify-center items-center md:items-start flex-initial">List</h1>
+		<div className="bg-white">
+			<h1 className="pt-5 flex justify-center items-center md:items-start">List</h1>
+			<hr />
 			{list.length ? (
-				<div className="flex items-center justify-between">
+				<div className = 'pt-5 mx-5'>
 					{list.map((item) => {
-						return <div>{item.name}</div>;
+						return (
+							<div className = 'flex justify-center items-center capitalize'>
+								<ul>
+									<li>
+										{item.name}
+									</li>
+								</ul>
+							</div>
+						);
 					})}
 				</div>
 			) : (
