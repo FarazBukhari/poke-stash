@@ -40,9 +40,13 @@ const PinDetail = ({ user }) => {
             if (query.data.data) {
                 let hel = query.data.data.types.map(type => type.name)
                 let query1 = await pinDetailMorePinQuery(hel[0]);
-                let query2 = await pinDetailMorePinQuery(hel[1]);
-                let moreList = arrayUnique(query1.data.data.concat(query2.data.data))
-                setPins(moreList.splice(1))
+                if (hel[1]) {
+                    let query2 = await pinDetailMorePinQuery(hel[1]);
+                    let moreList = arrayUnique(query1.data.data.concat(query2.data.data).sort(function(a, b){ return a._id - b._id}));
+                    setPins(moreList)
+                } else {
+                    setPins(query1.data.data)
+                }
             }
         }
     };
@@ -109,8 +113,8 @@ const PinDetail = ({ user }) => {
                             {pinDetail.name}
                         </h1>
                         {/* {console.log('pinDetail', pinDetail)} */}
-                        <p className='mt-3 capitalize'><strong>Type:</strong> {pinDetail.types.map(types => types.name).join(', ')}</p>
-                        <p className='mt-3 capitalize'><strong>Abilities:</strong> {pinDetail.abilities.map(abilities => abilities.name).join(', ')}</p>
+                        <p className='mt-3 capitalize'><strong>Type:</strong> {pinDetail.types.map(types => types.name).join(' | ')}</p>
+                        <p className='mt-3 capitalize'><strong>Abilities:</strong> {pinDetail.abilities.map(abilities => abilities.name).join(' | ')}</p>
                         <p className='mt-3'><strong>Height:</strong> {pinDetail.height}</p>
                         <p className='mt-3'><strong>Weight:</strong> {pinDetail.weight}</p>
                         <p className='mt-3'><strong>Base Experience:</strong> {pinDetail.base_experience}</p>

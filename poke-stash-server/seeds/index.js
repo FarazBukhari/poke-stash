@@ -27,7 +27,7 @@ const fetchPokemonData = (pokemon) => {
 
 const fetchKantoPokemon = async () => {
 	await Pokemon.deleteMany({});
-	fetch('https://pokeapi.co/api/v2/pokemon?limit=150').then((response) => response.json()).then((allPokemon) => {
+	fetch('https://pokeapi.co/api/v2/pokemon?limit=898').then((response) => response.json()).then((allPokemon) => {
 		allPokemon.results.forEach((pokemon) => {
 			fetchPokemonData(pokemon);
 		});
