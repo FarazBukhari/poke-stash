@@ -9,6 +9,7 @@ import constants from '../helpers/constants'
 import { pinDetailMorePinQuery, pinDetailQuery } from '../utils/data'
 import Spinner from './Spinner'
 import axios from 'axios'
+import { BsChatLeftTextFill } from 'react-icons/bs'
 
 
 const PinDetail = ({ user }) => {
@@ -17,41 +18,31 @@ const PinDetail = ({ user }) => {
     const [comment, setComment] = useState('');
     const [addingComment, setAddingComment] = useState(false);
     const { pinId } = useParams();
+
+    function arrayUnique(array) {
+        let a = array.concat();
+        for(let i=0; i<a.length; ++i) {
+            for (let j = i + 1; j < a.length; ++j) {
+                if (a[i]._id === a[j]._id) {
+                    a.splice(j--, 1);
+                }
+            }
+        }
+        return a;
+    }
     
-
-    // const fetchPinDetails = async () => {
-    //     let query = await pinDetailQuery(pinId);
-
-    //     if (query) {
-    //         console.log('query data', query.data.data[0])
-    //         setPinDetail(query.data.data[0])
-    //         console.log('pin data', pinDetail)
-    //         client.fetch(`${query}`)
-    //             .then((data) => {  
-    //                 // console.log('queryData', data);
-    //                 setPinDetail(data[0]);
-                
-    //                 if (data[0]) {
-    //                     query = pinDetailMorePinQuery(data[0]);
-    //                     client.fetch(query)
-    //                         .then((res) => {
-    //                             // console.log('res', res)
-    //                             setPins(res)
-    //                         });
-    //                 }
-    //             })
-    //     }
-    // };
-
     const fetchPinDetails = async () => {
         let query = await pinDetailQuery(pinId);
+
         if (query) {
             setPinDetail(query.data.data)
 
             if (query.data.data) {
-                query = pinDetailMorePinQuery(query.data.data).then((res) => {
-                    setPins(res.data.data)
-                })
+                let hel = query.data.data.types.map(type => type.name)
+                let query1 = await pinDetailMorePinQuery(hel[0]);
+                let query2 = await pinDetailMorePinQuery(hel[1]);
+                let moreList = arrayUnique(query1.data.data.concat(query2.data.data))
+                setPins(moreList.splice(1))
             }
         }
     };

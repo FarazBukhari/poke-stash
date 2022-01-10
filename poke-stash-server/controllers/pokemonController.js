@@ -51,6 +51,8 @@ const getPokemonByType = async function(req, res) {
 		// console.log('reqData Types', reqData);
 		let typeRecord = await Type.findOne({ name: reqData.name });
 		let record = await Pokemon.find({ types: typeRecord._id }).sort({ _id: 1 });
+
+		// console.log('record', record);
 		if (record) {
 			return commonFunctions.sendResponse(
 				res,

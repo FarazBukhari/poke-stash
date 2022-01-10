@@ -102,7 +102,7 @@ export const pinDetailQuery = async (pinId) => {
 };
 
 export const pinDetailMorePinQuery = async (pin) => {
-	const query = await axios.get(constants.api_urls.get_pokemon_by_type + pin.types.map((type) => type.name)[0]);
+	const query = await axios.get(constants.api_urls.get_pokemon_by_type + pin);
 	return query;
 };
 
