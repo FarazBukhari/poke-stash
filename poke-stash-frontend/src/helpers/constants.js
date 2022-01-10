@@ -8,6 +8,7 @@ const constants = {
 		get_all_pokemon: '/pokemon/getAll',
 		get_pokemon_by_id: '/pokemon/getById?id=',
 		get_pokemon_by_type: '/pokemon/getByType?name=',
+		get_type_by_id: '/type/getById?id=',
 		get_test: '/test/getTest',
 		get_search: '/search/getSearch?searchTerm='
 	}

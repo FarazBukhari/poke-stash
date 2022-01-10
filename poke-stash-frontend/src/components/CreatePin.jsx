@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { client } from '../client'
 import Spinner from './Spinner'
-import { types } from '../utils/data'
+import { typeList } from '../utils/data'
 
 const CreatePin = ({ user }) => {
     const [title, setTitle] = useState('');
@@ -159,7 +159,7 @@ const CreatePin = ({ user }) => {
                             >
                                 <option value='other' className='bg-white'>Select type</option>
 
-                                {types.map((type) => (
+                                {typeList.map((type) => (
                                     <option
                                         className='text-base border-0 outline-none capitalize bg-white text-black'
                                         value={type.name}

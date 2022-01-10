@@ -3,11 +3,11 @@ const Type = require('../models/type');
 const appConstants = require('../constants/common');
 const commonFunctions = require('../helpers/commonFunctions');
 
-const getPokemonByType = async (req, res) => {
+const getTypeById = async (req, res) => {
 	const reqData = req.query;
-
 	try {
-		let record = await Type.findOne({ name: reqData.name })
+		let record = await Type.findOne({ _id: reqData.id })
+			.sort({ _id: 1 })
 			.populate({
 				path: 'pokemon',
 				select: [
@@ -16,7 +16,7 @@ const getPokemonByType = async (req, res) => {
 			})
 			.lean();
 
-		console.log('Displaying type', record);
+		// console.log('Displaying', record);
 		if (record) {
 			return commonFunctions.sendResponse(
 				res,
@@ -54,6 +54,6 @@ const getAllTypes = async function(req, res) {
 };
 
 module.exports = {
-	getPokemonByType: getPokemonByType,
+	getTypeById: getTypeById,
 	getAllTypes: getAllTypes
 };

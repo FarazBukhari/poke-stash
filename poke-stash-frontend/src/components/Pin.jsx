@@ -5,11 +5,10 @@ import { v4 as uuidv4 } from 'uuid';
 import { IoMdDownloadForOffline, MdDownloadForOffline } from 'react-icons/md';
 import { AiTwotoneDelete } from 'react-icons/ai';
 import { BsFillArrowUpRightCircleFill } from 'react-icons/bs';
-import { fetchUser } from '../utils/fetchUser';
+import { fetchUser, typeList } from '../utils/fetchUser';
 
-const Pin = ({ pin: { _id, name, image, postedBy, save, destination } }) => {
+const Pin = ({ pin: { _id, name, image, types, postedBy, save, destination } }) => {
     const navigate = useNavigate();
-
     const [postHovered, setPostHovered] = useState(false);
     const [savingPost, setSavingPost] = useState(false);
 
@@ -49,15 +48,23 @@ const Pin = ({ pin: { _id, name, image, postedBy, save, destination } }) => {
     }
 
     return (
-        <div className='m-2 pb-5'>
+        <div className='m-2 pb-5 transition-all hover:scale-105 duration-500 ease-in-out'>
             <div
                 onMouseEnter={() => setPostHovered(true)}
                 onMouseLeave={() => setPostHovered(false)}
                 onClick={() => navigate(`/pin-detail/${_id}`)}
-                className='relative cursor-pointer w-auto hover:shadow-lg bg-white rounded-lg overflow-hidden transition-all duration-500 ease-in-out'
+                className='relative cursor-pointer w-auto hover:shadow-lg bg-white rounded-lg overflow-hidden'
             >
-                <img className='rounded-lg w-full bg-white'alt='user-post' src={image}/>
                 {postHovered && (
+                    <div className='flex flex-col items-center justify-between bg-red-500 opacity-70 font-bold px-5 py-1 text-base text-white hover:shadow-md outline-none p-1 pt-2 pr-2 pb-2'>
+                        <p className='flex gap-2'>#{_id}</p>
+                    </div>)}
+                    <img className='rounded-lg w-full bg-white' alt='user-post' src={image} />
+                    
+                    <div className='flex justify-center items-center bg-sky-300 opacity-90 h-20 w-full'>
+                        <p className='text-white font-bold uppercase text-3xl'>{name}</p>
+                    </div>
+                {/* {postHovered && (
                     <div
                         className='absolute top-0 w-full h-full flex flex-col justify-between pt-2 z-50'
                         // style = {{height: '100%'}}
@@ -92,7 +99,7 @@ const Pin = ({ pin: { _id, name, image, postedBy, save, destination } }) => {
                                         { savingPost ? 'Saving...' : 'Save' }
                                 </button>
                             )}
-                        </div>
+                        </div> */}
                         {/* <div className='flex justify-center items-center bg-black opacity-70 h-20 w-full'>
                             <p className='text-white font-bold capitalize'>{ name }</p> */}
                             {/* {destination && (
@@ -120,12 +127,24 @@ const Pin = ({ pin: { _id, name, image, postedBy, save, destination } }) => {
                                 </button>
                             )} */}
                         {/* </div> */}
-                        <div className='flex justify-center items-center bg-sky-300 opacity-90 h-20 w-full'>
-                            <p className='text-white font-bold uppercase text-3xl'>{ _id } - { name }</p>
-                        </div>
-                    </div>
+                        {/* <div className='flex justify-center items-center bg-sky-300 opacity-90 h-20 w-full'>
+                            <p className='text-white font-bold uppercase text-3xl'>{ name }</p>
+                        </div> */}
+                    {/* </div> */}
                         
-                )}
+                {/* )} */}
+            </div>
+            <div className='flex justify-center py-5' >
+                {types.map((type, index) => (
+                    <p
+                        className='bg-green-500 opacity-70 capitalize hover:opacity-100 text-white font-bold px-5 mx-2 py-1 text-base rounded-3xl hover:shadow-md outline-none cursor-pointer'
+                        onClick={() => navigate(`/type/${type.name}`)}
+                        key = {index}
+                    >
+                        {type.name}
+                    </p>
+                    ))
+                }
             </div>
             {/* <Link
                 to={`user-profile/${postedBy?._id}`}

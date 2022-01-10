@@ -3,7 +3,7 @@ import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { RiHomeFill } from 'react-icons/ri';
 import { IoIosArrowForward } from 'react-icons/io';
 import logo from '../assets/logo.png'
-import { types } from '../utils/data';
+import { typeList } from '../utils/data';
 import { GoogleLogout } from 'react-google-login';
 
 const Sidebar = ({ user, closeToggle }) => {
@@ -43,7 +43,7 @@ const Sidebar = ({ user, closeToggle }) => {
                         Home
                     </NavLink>
                     <h3 className='mt-2 px-5 text-white text-base 2xl:text-xl'>Pokemon Types</h3>
-                    {types.slice(0, types.length - 1).map(type => (
+                    {typeList.slice(0, typeList.length).map(type => (
                         <NavLink
                             to={`/type/${type.name}`}
                             className={({ isActive }) => isActive ? isActiveStyle : isNotActiveStyle}

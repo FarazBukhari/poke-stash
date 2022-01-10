@@ -87,7 +87,7 @@ const PinDetail = ({ user }) => {
                         alt='user-post'
                     />
                 </div>
-                <div className='w-full p-5 flex-1 xl:min-w-620'>
+                <div className='w-full p-5 flex-1 xl:min-w-620 bg-sky-100 rounded-r-3xl'>
                     <div className='flex items-center justify-between'>
                         <div className='flex gap-2 items-center'>
                         <a

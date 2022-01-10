@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { client } from '../client';
-import { feedQuery, searchQuery, typeQuery } from '../utils/data';
+import { feedQuery, searchQuery, typeQuery, getTypesQuery } from '../utils/data';
 import MasonryLayout from './MasonryLayout';
 import Spinner from './Spinner';
 
@@ -10,8 +10,8 @@ import Spinner from './Spinner';
 const Feed = () => {
     const [loading, setLoading] = useState(false);
     const [pins, setPins] = useState(null);
+    // const [types, setTypes] = useState(null);
     const { typeName } = useParams();
-
 
     const fetchFeedDetails = async () => {
         let query = await feedQuery();
